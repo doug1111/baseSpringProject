@@ -1,0 +1,54 @@
+server:
+  port: 9092
+  #缓慢的HTTP拒绝服务攻击漏洞解决办法
+  tomcat:
+    max-connections: 2000
+    connection-timeout: 30000
+  #Cookie没有HttpOnly安全标志设置漏洞解决办法
+  servlet:
+    session:
+      cookie:
+        http-only: true
+spring:
+  messages:
+    encoding: UTF-8
+    basename: messages/message
+  jackson:
+    # 全局设置@JsonFormat的格式pattern
+    date-format: yyyy-MM-dd HH:mm:ss
+    # 当地时区
+    locale: zh
+    # 设置全局时区
+    time-zone: Asia/Shanghai
+    # 常规默认,枚举类SerializationFeature中的枚举属性为key，值为boolean设置jackson序列化特性,具体key请看SerializationFeature源码
+    serialization:
+      WRITE_ENUMS_USING_TO_STRING: true
+      #      WRITE_DATES_AS_TIMESTAMPS: true # 返回的java.util.date转换成timestamp
+      FAIL_ON_EMPTY_BEANS: true # 对象为空时是否报错，默认true
+    deserialization:
+      # 常用,json中含pojo不存在属性时是否失败报错,默认true
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleteFlag  #全局逻辑删除字段值
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+#      此处为数据表统一前缀
+      table-prefix: temp_
+    banner: false
+
+#权限相关配置
+permission:
+  exclude-check-url: /doc.html,/webjars/**,/swagger-resources/**,/swagger-ui/**,/v3/api-docs,/user/register,/user/login,/user/forgotPassword,/user/sendEmailCode,/user/sendMobileCode,/user/checkNickName,/user/areaCodeList,/product/indexList,/product/productList,/product/detail,/question/page,/product/getProductWithType
+  admin:
+    menu: '[{"path":"/admain","name":"主页","en_name":"Home","icon":"#iconzhuye"},{"path":"/adrecommend","name":"推荐","en_name":"Recommend","icon":"#iconliwu"},{"path":"/advmanagement","name":"广告","en_name":"Advertisement","icon":"#iconguanggao"},{"path":"/goodslist","name":"商品","en_name":"Commodity","icon":"#iconshangpin"},{"path":"/usermanagement","name":"用户","en_name":"Users","icon":"#iconyonghu","iconHidden":true},{"path":"/postlist","name":"帖子","en_name":"Content","icon":"#icontiezi"},{"path":"/integrallist","name":"积分","en_name":"Points","icon":"#iconjifen","iconHidden":true},{"path":"/settlementlist","name":"结算","en_name":"Settlement","icon":"#iconjiesuan","iconHidden":true},{"path":"/recharge","name":"充值","en_name":"Recharge","icon":"#iconchongzhi","iconHidden":true},{"path":"/setting","name":"系统","en_name":"System","icon":"#iconxitong"}]'
+    uri: /user/detail,/user/logout,/adminPowerRecord/top,/goods/saveOrUpdate,/goods/page,/goods/detail,/goods/delete,/adminPromotionRecord/page,/adminRecord/changeStatus,/adminRecord/page,/adminUser/page,/adminUser/userInfo,/adminOrders/page,/user/updateUser,/orders/detail,/adminOrders/changeStatus
+  user:
+    menu: '[{"path":"/main","name":"主页","en_name":"Home","icon":"#iconzhuye"},{"path":"/notice","name":"消息","en_name":"Message","icon":"#icontongzhi"},{"path":"/recommend","name":"推荐","en_name":"Recommend","icon":"#iconliwu"},{"path":"/effect","name":"效果","en_name":"Effect","icon":"#iconxiaoguo"},{"path":"/favourites","name":"收藏","en_name":"Collection","icon":"#iconshoucang"},{"path":"/record","name":"积分","en_name":"Points","icon":"#iconjifen"},{"path":"/setting","name":"系统","en_name":"System","icon":"#iconxitong"}]'
+    uri: /user/detail,/user/logout,/orders/create,/orders/detail,/orders/page,/orders/updateVoucher,/wallet/list,/incomeDetails/allAmount,/incomeDetails/page,/withdrawalRecord/page,/withdrawalRecord/create,/withdrawalRecord/cancel,/promotionRecord/page,/powerRecord/productPageForDay,/powerRecord/productPageForOrder,/powerRecord/top,/user/updateUser,/orders/changeStatus,/incomeDetails/revenueOverview,/orders/deleteVoucher

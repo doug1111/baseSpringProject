@@ -1,0 +1,93 @@
+spring:
+  datasource:
+    # 基本属性
+    url: jdbc:mysql://localhost:3306/templateDB?cacheServerConfiguration=true&useLocalSessionState=true&autoReconnect=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: admin
+    password: admin
+    type: com.alibaba.druid.pool.DruidDataSource
+    # druid 配置
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      # 初始化大小
+      initial-size: 5
+      max-active: 100
+      min-idle: 5
+      # 获取连接等待超时时间
+      max-wait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      # 配置一个连接在池中的最小生存时间，单位是毫秒
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      validation-query-timeout: 60000
+      # 建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，
+      # 如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效
+      test-while-idle: true
+      # 申请连接时检测连接是否有效
+      test-on-borrow: false
+      # 归还连接时检测连接是否有效
+      test-on-return: false
+      # 打开PSCache,并且指定每个连接上的PSCache大小
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      # 配置监控统计拦截的 Filter，去掉后监控界面 SQL 无法统计，wall 用于防火墙
+      filters: wall
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*" #不统计这些请求数据
+      stat-view-servlet: #访问监控网页的登录用户名和密码
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: false
+        allow: 127.0.0.1
+        # druid访问地址:http://localhost:port/context-path/druid/login.html 账号&密码
+        login-username: admin
+        login-password: admin
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    timeout: 10000
+#    password:
+
+  mail:
+    # 邮件服务地址
+    host: smtp.zoho.com
+    # 端口,可不写默认
+    port: 465
+    # 编码格式
+    default-encoding: utf-8
+    # 用户名
+    username: admin
+    # 授权码，就是我们刚才准备工作获取的代码
+    password: admin
+    # 其它参数
+    properties:
+      mail:
+        smtp:
+          # 如果是用 SSL 方式，需要配置如下属性,使用qq邮箱的话需要开启
+          ssl:
+            enable: true
+            required: true
+          # 邮件接收时间的限制，单位毫秒
+          timeout: 10000
+          # 连接时间的限制，单位毫秒
+          connectiontimeout: 10000
+          # 邮件发送时间的限制，单位毫秒
+          writetimeout: 10000
+
+#Swagger配置,详细配置参考官网 https://doc.xiaominfo.com/
+knife4j:
+  #是否开启Knife4j增强模式
+  enable: true
+  setting:
+    #是否开启界面中对某接口的版本控制,如果开启，后端变化后Ui界面会存在小蓝点
+    enableVersion: true
+  #是否开启生产环境保护策略
+  production: false
+  #对Knife4j提供的资源提供BasicHttp校验,保护文档
+  basic:
+    enable: false
+    username: root
+    password: 1234!@#$
