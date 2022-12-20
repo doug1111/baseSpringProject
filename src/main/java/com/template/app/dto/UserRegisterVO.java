@@ -7,15 +7,15 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * 登录返回实体
+ * 用户注册信息
  *
  * @author Doug Liu
  * @since 2022-06-14
  *
  */
 @Data
-@ApiModel(value = "UserRegisterVo", description = "根据原型去判断必填字段，文档就不写了")
-public class UserRegisterVo implements Serializable {
+@ApiModel(value = "用户注册信息", description = "用户注册信息")
+public class UserRegisterVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

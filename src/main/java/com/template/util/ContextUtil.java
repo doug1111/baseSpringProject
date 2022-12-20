@@ -1,7 +1,7 @@
 package com.template.util;
 
 
-import com.template.app.dto.LoginDto;
+import com.template.app.dto.LoginDTO;
 
 /**
  * 上下文工具类
@@ -12,13 +12,13 @@ import com.template.app.dto.LoginDto;
  */
 public class ContextUtil {
 
-    private static final ThreadLocal<LoginDto> myHolder = new ThreadLocal<>();
+    private static final ThreadLocal<LoginDTO> myHolder = new ThreadLocal<>();
 
-    public static void setContext(LoginDto context) {
+    public static void setContext(LoginDTO context) {
         myHolder.set(context);
     }
 
-    public static LoginDto getContext() {
+    public static LoginDTO getContext() {
         return myHolder.get();
     }
 

@@ -16,8 +16,8 @@ import lombok.Data;
  *
  */
 @Data
-@ApiModel(value = "用户信息", description = "根据原型去判断必填字段，文档就不写了")
-public class UserDto implements Serializable {
+@ApiModel(value = "用户信息", description = "用户信息")
+public class UserDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

@@ -1,15 +1,15 @@
 package com.template;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
+import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
@@ -41,9 +41,9 @@ public class CodeGenerator {
 		throw new MybatisPlusException("请输入正确的" + tip + "！");
 	}
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         /*
-            特别注意：生成的时间类型均为：“LocalDateTime”格式，需要假如以下注解方可正常使用
+            特别注意：生成的时间类型均为：“LocalDateTime”格式，需要加入以下注解方可正常使用
             @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
             @JsonDeserialize(using = LocalDateTimeDeserializer.class)
             @JsonSerialize(using = LocalDateTimeSerializer.class)
@@ -54,10 +54,17 @@ public class CodeGenerator {
         String password = "Dmbz1234.";//密码
         //全局配置参数
         String author = "Doug Liu";//作者
-        String outputDir = System.getProperty("code_path")+"/src/main/java";//指定输出目录
+        /*
+         * 这里必须做修改改成自己项目的地址的位置
+         */
+        File file = new File("");
+        String filePath = file.getCanonicalPath();
+//        String filePath = System.getProperty("code_path");
+        String outputDir = filePath + "/src/main/java";//指定Controller,Service,Mapper输出目录
+        String xmlOutputDir = filePath + "/src/main/resources/mapper";//指定xml输出目录
         //包配置参数
-        String parent = "com.template";//父包名
-        String moduleName = "app";//父包模块名
+        String parent = "com.template.app";//父包名
+//        String moduleName = "app";//父包模块名
         String entity = "entity";//Entity 实体类包名
         String mapper = "mapper";//Mapper 包名
         String mapperXml = "mapper";//Mapper XML 包名
@@ -74,19 +81,21 @@ public class CodeGenerator {
                     builder.author(author)
                             .outputDir(outputDir)
                             .enableSwagger()//开启swagger
+                            .disableOpenDir()//设置生成完毕后不打开生成代码所在的目录,注释掉则变为打开
                             .dateType(DateType.ONLY_DATE)
                             .commentDate("yyyy-MM-dd");//注释日期
                 })
                 //包配置
                 .packageConfig(builder -> {
                     builder.parent(parent)
-                            .moduleName(moduleName)
+//                            .moduleName(moduleName)// 父包模块名 可以注释掉
                             .entity(entity)
                             .mapper(mapper)
                             .xml(mapperXml)
                             .service(service)
                             .serviceImpl(serviceImpl)
-                            .controller(controller);
+                            .controller(controller)
+                            .pathInfo(Collections.singletonMap(OutputFile.xml, xmlOutputDir));
                 })
                 //策略配置
                 .strategyConfig(builder -> {
@@ -94,12 +103,13 @@ public class CodeGenerator {
                             //开启生成实体类
                             .entityBuilder()
                             .enableLombok()//开启 lombok 模型
-                            .enableTableFieldAnnotation()//开启生成实体时生成字段注解
+//                            .enableTableFieldAnnotation()//开启生成实体时生成字段注解
                             .superClass("com.template.app.entity.base.BaseEntity")
                             .addSuperEntityColumns("id", "create_time", "update_time", "delete_flag")//写于父类中的公共字段
                             .naming(NamingStrategy.underline_to_camel)
                             .columnNaming(NamingStrategy.underline_to_camel)
-                            .enableLombok()
+                            .disableSerialVersionUID()
+                            .enableChainModel()
                             .enableFileOverride()
                             //开启生成mapper
                             .mapperBuilder()
@@ -111,7 +121,7 @@ public class CodeGenerator {
                             .formatXmlFileName("%sMapper")//格式化 xml 实现类文件名称
                             //开启生成service及impl
                             .serviceBuilder()
-                            .formatServiceFileName("%sService")//格式化 service 接口文件名称
+                            .formatServiceFileName("I%sService")//格式化 service 接口文件名称
                             .formatServiceImplFileName("%sServiceImpl")//格式化 service 实现类文件名称
                             .enableFileOverride()
                             //开启生成controller

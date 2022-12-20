@@ -8,15 +8,15 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * 登录返回实体
+ * 用户登录信息
  *
  * @author Doug Liu
  * @since 2022-06-14
  *
  */
 @Data
-@ApiModel(value = "登录返回实体")
-public class LoginDto implements Serializable {
+@ApiModel(value = "用户登录信息", description = "用户登录信息")
+public class LoginDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

@@ -1,6 +1,7 @@
 package com.template.app.entity.base;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
@@ -29,11 +30,11 @@ public class BaseEntity implements Serializable {
 
 	@TableField(fill = FieldFill.INSERT)
 	@ApiModelProperty(value = "创建时间")
-	private Date createTime;
+	private Timestamp createTime;
 
 	@TableField(fill = FieldFill.UPDATE)
 	@ApiModelProperty(value = "更新时间")
-	private Date updateTime;
+	private Timestamp updateTime;
 
 	@ApiModelProperty(value = "删除 0否 1是")
 	private Integer deleteFlag;
