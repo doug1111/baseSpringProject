@@ -35,21 +35,4 @@ public interface UserMapper extends BaseMapper<User> {
 	 */
 	UserDto getUserInfo(Long userId);
 
-    /**
-     * 根据用户Id和电话获取用户
-     * @param userId        用户ID
-     * @param purchaserInfo 用户电话
-     * @return
-     */
-    List<User> getUserByIdAndMobile(@Param("userId") Long userId, @Param("purchaserInfo") String purchaserInfo);
-    
-    /**
-     * 用户列表
-     * @param page
-     * @param userName
-     * @param startDate
-     * @param endDate
-     * @return IPage<UserDto>
-     */
-    IPage<UserDto> getAdminUserList(Page<UserDto> page, Long userName, String startDate, String endDate);
 }

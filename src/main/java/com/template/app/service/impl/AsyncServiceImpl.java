@@ -28,7 +28,7 @@ public class AsyncServiceImpl implements IAsyncService {
 
     @Override
     @Async
-    public void createRecommendAd(Long userId) {
-        List<User> userList = iUserService.list(Wrappers.<User>lambdaQuery().isNotNull(User::getBirthday));
+    public void createAsyncTask(Long userId) {
+        List<User> userList = iUserService.list(Wrappers.<User>lambdaQuery().isNotNull(User::getNickName));
     }
 }

@@ -34,13 +34,6 @@ public class CustomConstants {
 	}
 
 	/**
-	 * Feed流广告相关
-	 */
-	public static class FeedAds {
-		public static final String FEED_ADS_KEY = "feed:ads:key:";
-	}
-
-	/**
 	 * 数字相关
 	 */
 	public static class Number {
@@ -61,19 +54,4 @@ public class CustomConstants {
 		public static final int SEVEN = 7;
 	}
 
-	/**
-	 * 第三房token相关
-	 */
-	public static class ThirdToken {
-		public static final String FEED_ADS_KEY = "third:token:";
-	}
-
-	public static class NoticeTemplate{
-		public static final String CONTENT_MENTION = "你在帖子中被提及！";
-		public static final String CONTENT_REPLAY_MENTION = "你在帖子回复中被提及！";
-		public static final String CONTENT_REPRINT_MENTION = "你的帖子被转载！";
-		public static final String PRIVATE_MESSAGE = "你有新的私信消息！";
-		public static final String CONTENT_LIKE_MENTION = "你的帖子被点赞了！";
-		public static final String CONTENT_FAVOURITE_MENTION = "你的帖子被收藏了！";
-	}
 }

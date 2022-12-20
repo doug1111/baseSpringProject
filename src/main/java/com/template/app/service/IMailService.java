@@ -15,4 +15,5 @@ public interface IMailService {
 	 * @param content 内容
 	 */
 	void sendSimpleMailMessage(String to, String content);
+
 }

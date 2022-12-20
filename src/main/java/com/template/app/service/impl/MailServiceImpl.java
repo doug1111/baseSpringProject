@@ -21,12 +21,6 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class MailServiceImpl implements IMailService {
 
-	@Autowired
-	private JavaMailSender mailSender;
-
-	@Value("${spring.mail.username}")
-	private String sender;
-
 	private static final String PROJECT = "XX应用 验证码";
 
 	private static final String TEMPLATE = "【mining】您的验证码为：%s，该验证码5分钟内有效，请勿泄露于他人。";
@@ -35,12 +29,12 @@ public class MailServiceImpl implements IMailService {
 	@Async
 	public void sendSimpleMailMessage(String to, String content) {
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom(sender);
+//		message.setFrom(sender);
 		message.setTo(to);
 		message.setSubject(PROJECT);
 		message.setText(String.format(TEMPLATE, content));
 		try {
-			mailSender.send(message);
+//			mailSender.send(message);
 		} catch (Exception e) {
 			log.error("发送简单邮件时发生异常!", e);
 		}

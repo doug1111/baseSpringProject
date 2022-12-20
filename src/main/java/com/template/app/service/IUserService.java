@@ -20,64 +20,37 @@ public interface IUserService extends IService<User> {
 	/**
 	 * 获取用户详情
 	 *
-	 * @param userId
-	 * @return
+	 * @param userId 用户ID
+	 * @return UserDto
 	 */
-	ResultDTO<UserDto> userDetail(Long userId);
+    UserDto getUserDetail(Long userId);
 
 	/**
 	 * 注册
 	 *
-	 * @param userVo
-	 * @return
+	 * @param userVo 用户注册信息
+	 * @return LoginDto
 	 */
 	LoginDto register(UserRegisterVo userVo);
 
-
 	/**
 	 * 登录操作
-	 * @param email 邮箱
+	 * @param nickname 昵称
 	 * @param password 密码
-	 * @param mobile 电话
-	 * @param code 验证码
 	 * @param rememberMe 记住我
-	 * @return
+	 * @return LoginDto
 	 */
-	LoginDto doLogin(String email, String password, String mobile, String code, Boolean rememberMe);
-
-	/**
-	 * 忘记密码
-	 * @param userVo
-	 */
-	void forgotPassword(UserRegisterVo userVo);
-
-	/**
-	 * 发送邮件验证码
-	 * @param email
-	 */
-	void sendEmailCode(String email);
-
-    /**
-     * 发送手机验证码
-     * @param areaCode
-     * @param mobile
-     */
-	void sendMobileCode(String areaCode, String mobile);
-
-    /**
-     * 获取用户列表
-     * @param page
-     * @param pageSize
-     * @param userName
-     * @param startDate
-     * @param endDate
-     * @return IPage<UserDto>
-     */
-    IPage<UserDto> getAdminUserList(Integer page, Integer pageSize, Long userName, String startDate, String endDate);
+	LoginDto doLogin(String nickname, String password, Boolean rememberMe);
 
     /**
      * 修改用户信息
-     * @param userVo
+     * @param userVo 用户注册信息
      */
 	void updateUser(UserRegisterVo userVo);
+
+    /**
+     * 检查用户昵称重名
+     * @param nickName 昵称
+     */
+    void checkNickName(String nickName);
 }

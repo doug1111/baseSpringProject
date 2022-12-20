@@ -35,7 +35,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		String token = request.getHeader("token");
+        return true;
+        /*String token = request.getHeader("token");
 		String uri = request.getRequestURI();
 		if (!Strings.isNullOrEmpty(token)) {
 			// 校验用户是否已经补全信息
@@ -57,6 +58,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 		out.println(JSONObject.toJSONString(ResultDTO.fail(401)));
 		out.flush();
 		out.close();
-		return false;
+		return false;*/
 	}
 }

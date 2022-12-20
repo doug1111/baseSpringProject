@@ -5,33 +5,9 @@
 	<!-- 通用查询映射结果 -->
 	<resultMap id="BaseResultMap" type="com.template.app.entity.User">
 		<result column="id" property="id" />
+        <result column="salt" property="salt" />
         <result column="nick_name" property="nickName" />
         <result column="password" property="password" />
-        <result column="salt" property="salt" />
-        <result column="admin" property="admin" />
-        <result column="description" property="description" />
-        <result column="email" property="email" />
-        <result column="area_code" property="areaCode" />
-        <result column="mobile" property="mobile" />
-        <result column="gender" property="gender" />
-        <result column="user_type" property="userType" />
-        <result column="status" property="status" />
-        <result column="register_ip" property="registerIp" />
-        <result column="birthday" property="birthday" />
-        <result column="head_portrait" property="headPortrait" />
-        <result column="banner" property="banner" />
-        <result column="region" property="region" />
-        <result column="country" property="country" />
-        <result column="country_name" property="countryName" />
-        <result column="province" property="province" />
-        <result column="province_name" property="provinceName" />
-        <result column="city" property="city" />
-        <result column="city_name" property="cityName" />
-        <result column="district" property="district" />
-        <result column="district_name" property="districtName" />
-        <result column="private_key" property="privateKey" />
-        <result column="language" property="language" />
-        <result column="theme" property="theme" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
         <result column="delete_flag" property="deleteFlag" />
@@ -39,54 +15,19 @@
 
 	<!-- 通用查询结果列 -->
 	<sql id="Base_Column_List">
-		id, nick_name, password, salt, admin, description, email, area_code, mobile, gender, user_type, status, register_ip, birthday, head_portrait, banner, region, country, country_name, province, province_name, city, city_name, district, district_name, private_key, language, theme, create_time, update_time, delete_flag
+		id, salt, nick_name, password, create_time, update_time, delete_flag
 	</sql>
 	<select id="search" resultType="com.template.app.dto.UserDto">
 		SELECT
-			nu.*
-		FROM blk_user nu
-		WHERE delete_flag = 0 AND nu.nick_name LIKE concat('%', #{keywords}, '%')
+            id, salt, nick_name, password, create_time, update_time, delete_flag
+		FROM user
+		WHERE delete_flag = 0 AND nick_name LIKE concat('%', #{keywords}, '%')
 	</select>
 	<select id="getUserInfo" resultType="com.template.app.dto.UserDto">
 		SELECT
-			nu.*
-		FROM
-			blk_user nu
-		WHERE
-			nu.id = #{userId}
-	</select>
-    <select id="getUserByIdAndMobile" resultType="com.template.app.entity.User">
-        SELECT id
-        FROM blk_user
-        WHERE delete_flag = 0
-        AND id = #{userId}
-        AND CONCAT(area_code, mobile) = #{purchaserInfo}
-    </select>
-	<select id="getAdminUserList" resultType="com.template.app.dto.UserDto">
-		SELECT
-			u.id,
-			u.nick_name,
-		    u.email,
-		    u.mobile,
-		    u.create_time,
-			(SELECT COUNT(1) FROM blk_orders bo WHERE bo.user_id = u.id and bo.delete_flag = 0) AS orderCount,
-			(SELECT IFNULL(SUM(bo.calculation_power_number),0) FROM blk_orders bo WHERE bo.user_id = u.id and bo.delete_flag = 0) AS powerNumber,
-			(SELECT IFNULL(SUM(bid.amount),0) FROM blk_income_details bid WHERE bid.user_id = u.id AND bid.delete_flag = 0 AND bid.currency = 'BTC') AS btcAmount,
-			(SELECT IFNULL(SUM(bid.amount),0) FROM blk_income_details bid WHERE bid.user_id = u.id AND bid.delete_flag = 0 AND bid.currency = 'ETH') AS ethAmount
-		FROM
-			blk_user u
-		<where>
-			AND u.delete_flag = 0
-			<if test="userName != null and userName != ''">
-				AND u.nick_name LIKE concat('%', #{userName}, '%')
-			</if>
-			<if test="startDate != null and startDate != ''">
-				AND date_format(u.create_time, '%Y-%m-%d') <![CDATA[>=]]> date_format(#{startDate}, '%Y-%m-%d')
-			</if>
-			<if test="endDate != null and endDate != ''">
-				AND date_format(u.create_time, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{endDate}, '%Y-%m-%d')
-			</if>
-		</where>
+            id, salt, nick_name, password, create_time, update_time, delete_flag
+		FROM user
+		WHERE id = #{userId}
 	</select>
 
 </mapper>

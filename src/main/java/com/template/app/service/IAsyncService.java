@@ -10,9 +10,9 @@ package com.template.app.service;
 public interface IAsyncService {
 
 	/**
-	 * 分配用户广告
+	 * 执行异步任务
 	 * @param userId 用户ID
 	 */
-	void createRecommendAd(Long userId);
+	void createAsyncTask(Long userId);
 
 }
