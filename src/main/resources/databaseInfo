@@ -1,8 +1,9 @@
 CREATE TABLE `user` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'ID主键',
-  `nick_name` varchar(100) DEFAULT NULL COMMENT '昵称',
+  `nickname` varchar(100) DEFAULT NULL COMMENT '昵称',
   `password` varchar(255) NOT NULL COMMENT '密码',
   `salt` varchar(10) NOT NULL COMMENT '盐',
+  `birthday` datetime DEFAULT NULL COMMENT '生日',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `delete_flag` tinyint NOT NULL DEFAULT '0' COMMENT '删除 0否  1是',

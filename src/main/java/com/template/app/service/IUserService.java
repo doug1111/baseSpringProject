@@ -1,10 +1,10 @@
 package com.template.app.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.template.app.dto.LoginDTO;
 import com.template.app.dto.UserDTO;
 import com.template.app.dto.UserRegisterVO;
 import com.template.app.entity.User;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
@@ -27,15 +27,16 @@ public interface IUserService extends IService<User> {
     /**
      * 注册
      *
-     * @param userVo 用户注册信息
+     * @param userRegisterVO 用户注册信息
      * @return LoginDTO
      */
-    LoginDTO register(UserRegisterVO userVo);
+    LoginDTO register(UserRegisterVO userRegisterVO);
 
     /**
      * 登录操作
-     * @param nickname 昵称
-     * @param password 密码
+     *
+     * @param nickname   昵称
+     * @param password   密码
      * @param rememberMe 记住我
      * @return LoginDTO
      */
@@ -43,13 +44,16 @@ public interface IUserService extends IService<User> {
 
     /**
      * 修改用户信息
-     * @param userVo 用户注册信息
+     *
+     * @param userRegisterVO 用户注册信息
      */
-    void updateUser(UserRegisterVO userVo);
+    void updateUser(UserRegisterVO userRegisterVO);
 
     /**
      * 检查用户昵称重名
-     * @param nickName 昵称
+     *
+     * @param nickname 昵称
      */
-    void checkNickName(String nickName);
+    void checkNickname(String nickname);
+
 }

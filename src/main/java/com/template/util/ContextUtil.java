@@ -8,18 +8,17 @@ import com.template.app.dto.LoginDTO;
  *
  * @author Doug Liu
  * @since 2022-06-10
- *
  */
 public class ContextUtil {
 
     private static final ThreadLocal<LoginDTO> myHolder = new ThreadLocal<>();
 
-    public static void setContext(LoginDTO context) {
-        myHolder.set(context);
-    }
-
     public static LoginDTO getContext() {
         return myHolder.get();
+    }
+
+    public static void setContext(LoginDTO context) {
+        myHolder.set(context);
     }
 
 }

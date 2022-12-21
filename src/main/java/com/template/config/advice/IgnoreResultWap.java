@@ -10,9 +10,8 @@ import java.lang.annotation.Target;
  *
  * @author Doug Liu
  * @since 2022-06-10
- *
  */
-@Target({ ElementType.TYPE, ElementType.METHOD })
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface IgnoreResultWap {
 }

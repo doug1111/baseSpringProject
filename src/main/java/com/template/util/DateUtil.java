@@ -2,19 +2,13 @@ package com.template.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 日期处理工具类
  *
  * @author Doug Liu
  * @since 2022-06-10
- *
  */
 public class DateUtil {
 
@@ -30,6 +24,7 @@ public class DateUtil {
 
     /**
      * 获取前几天的时间
+     *
      * @return String
      */
     public static Date getDate(int num) {
@@ -42,6 +37,7 @@ public class DateUtil {
 
     /**
      * 获取某个时间某天的时间
+     *
      * @return String
      */
     public static Date getDate(int num, Date date) {
@@ -53,6 +49,7 @@ public class DateUtil {
 
     /**
      * 年月日字符串格式化成日期
+     *
      * @param date 日期字符串
      * @return Date
      */
@@ -60,8 +57,7 @@ public class DateUtil {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         try {
             return format.parse(date);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         return null;
@@ -69,6 +65,7 @@ public class DateUtil {
 
     /**
      * 年月日时分秒字符串格式化成日期
+     *
      * @param date 日期字符串
      * @return Date
      */
@@ -76,8 +73,7 @@ public class DateUtil {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             return format.parse(date);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         return null;
@@ -85,6 +81,7 @@ public class DateUtil {
 
     /**
      * 年月日时分秒日期格式化成字符串
+     *
      * @param date 日期
      * @return String
      */
@@ -95,6 +92,7 @@ public class DateUtil {
 
     /**
      * 年月日日期格式化成字符串
+     *
      * @param date 日期
      * @return String
      */
@@ -105,6 +103,7 @@ public class DateUtil {
 
     /**
      * 月日日期格式化字符串
+     *
      * @param date 日期
      * @return String
      */
@@ -115,6 +114,7 @@ public class DateUtil {
 
     /**
      * 距离当前时间之前多久
+     *
      * @param date 日期
      * @return String
      */
@@ -126,20 +126,18 @@ public class DateUtil {
         long ago = now - time;
         if (ago <= ONE_MINUTE) {
             return ago + "秒前";
-        }
-        else if (ago <= ONE_HOUR) {
+        } else if (ago <= ONE_HOUR) {
             return ago / ONE_MINUTE + "分钟前";
-        }
-        else if (ago <= ONE_DAY) {
+        } else if (ago <= ONE_DAY) {
             return ago / ONE_HOUR + "小时前";
-        }
-        else {
+        } else {
             return dateToStringShort(date);
         }
     }
 
     /**
      * 距离当前时间之后多久
+     *
      * @param date 日期
      * @return String
      */
@@ -151,14 +149,11 @@ public class DateUtil {
         long ago = time - now;
         if (ago <= ONE_MINUTE) {
             return ago + "秒后";
-        }
-        else if (ago <= ONE_HOUR) {
+        } else if (ago <= ONE_HOUR) {
             return ago / ONE_MINUTE + "分钟后";
-        }
-        else if (ago <= ONE_DAY) {
+        } else if (ago <= ONE_DAY) {
             return ago / ONE_HOUR + "小时后";
-        }
-        else {
+        } else {
             return ago / ONE_DAY + "天后";
         }
     }
@@ -166,6 +161,7 @@ public class DateUtil {
 
     /**
      * 距离日期多久结束
+     *
      * @param date 日期
      * @return String
      */
@@ -177,14 +173,11 @@ public class DateUtil {
         long ago = now - time;
         if (ago <= ONE_MINUTE) {
             return ago + "秒前";
-        }
-        else if (ago <= ONE_HOUR) {
+        } else if (ago <= ONE_HOUR) {
             return ago / ONE_MINUTE + "分钟前";
-        }
-        else if (ago <= ONE_DAY) {
+        } else if (ago <= ONE_DAY) {
             return ago / ONE_HOUR + "小时前";
-        }
-        else {
+        } else {
             return dateToStringSmall(date);
         }
     }
@@ -192,6 +185,7 @@ public class DateUtil {
 
     /**
      * 通过时间区间计算开始日期和结束日期
+     *
      * @param dateInterval 时间区间，过去的天数为负，将来的时间为正
      * @return Map<String, String>
      */
@@ -210,8 +204,9 @@ public class DateUtil {
 
     /**
      * 获取两个时间段每天的日期列表
+     *
      * @param begin 开始日期
-     * @param end 结束日期
+     * @param end   结束日期
      * @return List<String>
      */
     public static List<String> getBetweenDate(String begin, String end) {
@@ -229,8 +224,7 @@ public class DateUtil {
                 betweenList.add(format.format(calBegin.getTime()));
                 calBegin.add(Calendar.DATE, 1);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return betweenList;
@@ -238,6 +232,7 @@ public class DateUtil {
 
     /**
      * 获取某个日期的周一
+     *
      * @param date 日期
      * @return Date
      */
@@ -261,6 +256,7 @@ public class DateUtil {
 
     /**
      * 获取一定天数之前或之后的日期
+     *
      * @param date 当前日期
      * @param days 正数之后的天数，负数为之前的天数
      * @return Date
@@ -293,15 +289,11 @@ public class DateUtil {
                 if (dayOfMonthNow < dayOfMonthBirth) {
                     age--;
                 }
-            }
-            else {
+            } else {
                 age--;
             }
         }
         return age;
     }
 
-    public static void main(String[] args) {
-        System.out.println(System.currentTimeMillis() > getDate(1, stringToDateLong("2021-6-24 10:09:02")).getTime());
-    }
 }

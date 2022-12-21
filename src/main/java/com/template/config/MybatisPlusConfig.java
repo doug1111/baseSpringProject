@@ -6,9 +6,7 @@ import com.baomidou.mybatisplus.extension.MybatisMapWrapperFactory;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
 import org.mybatis.spring.annotation.MapperScan;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,7 +15,6 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author Doug Liu
  * @since 2022-06-10
- *
  */
 @Configuration
 @MapperScan("com.template.app.mapper")
@@ -42,12 +39,13 @@ public class MybatisPlusConfig {
         return interceptor;
     }
 
-	/**
-	 * 查询的map转驼峰
-	 * @return ConfigurationCustomizer
-	 */
-	@Bean
-	public ConfigurationCustomizer mybatisConfigurationCustomizer() {
-		return configuration -> configuration.setObjectWrapperFactory(new MybatisMapWrapperFactory());
-	}
+    /**
+     * 查询的map转驼峰
+     *
+     * @return ConfigurationCustomizer
+     */
+    @Bean
+    public ConfigurationCustomizer mybatisConfigurationCustomizer() {
+        return configuration -> configuration.setObjectWrapperFactory(new MybatisMapWrapperFactory());
+    }
 }

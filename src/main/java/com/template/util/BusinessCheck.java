@@ -1,12 +1,11 @@
 package com.template.util;
 
 
-import java.util.Collection;
-
 import com.template.common.BizException;
 import org.apache.commons.collections.CollectionUtils;
-
 import org.springframework.stereotype.Component;
+
+import java.util.Collection;
 
 
 /**

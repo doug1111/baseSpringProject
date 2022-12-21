@@ -7,7 +7,6 @@ import org.apache.shiro.crypto.hash.Md5Hash;
  *
  * @author Doug Liu
  * @since 2022-06-10
- *
  */
 public class PasswordUtil {
 
@@ -20,6 +19,7 @@ public class PasswordUtil {
 
     /**
      * 生成盐值
+     *
      * @param plainPassword 密码明文
      * @param salt          盐值
      * @return String
@@ -30,6 +30,7 @@ public class PasswordUtil {
 
     /**
      * 验证密码
+     *
      * @param plainPassword 明文密码
      * @param salt          盐值
      * @param password      密码
@@ -39,4 +40,5 @@ public class PasswordUtil {
         String newPassword = encryptPassword(plainPassword, salt);
         return password.equals(newPassword);
     }
+
 }

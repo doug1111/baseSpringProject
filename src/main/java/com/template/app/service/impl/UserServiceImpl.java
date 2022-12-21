@@ -2,6 +2,7 @@ package com.template.app.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.template.app.dto.LoginDTO;
 import com.template.app.dto.UserDTO;
 import com.template.app.dto.UserRegisterVO;
@@ -9,7 +10,6 @@ import com.template.app.entity.User;
 import com.template.app.entity.enums.CustomConstants;
 import com.template.app.mapper.UserMapper;
 import com.template.app.service.IUserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.template.common.BizException;
 import com.template.util.BeanUtil;
 import com.template.util.BusinessCheck;
@@ -36,14 +36,6 @@ import java.util.UUID;
 @Slf4j
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
-    /** 普通用户菜单 **/
-    @Value("${permission.user.menu}")
-    private String userMenuList;
-
-    /** 普通接口权限 **/
-    @Value("${permission.user.uri}")
-    private List<String> userUriList;
-
     /**
      * 过期时间24小时
      */
@@ -53,6 +45,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * 一个月过期时间
      */
     private static final long LONG_EXPIRE_TIME = 30 * 24 * 60 * 60;
+
+    /**
+     * 普通用户菜单
+     **/
+    @Value("${permission.user.menu}")
+    private String userMenuList;
+
+    /**
+     * 普通接口权限
+     **/
+    @Value("${permission.user.uri}")
+    private List<String> userUriList;
 
     @Resource
     private RedisUtil redisUtil;
@@ -65,15 +69,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public LoginDTO register(UserRegisterVO userVo) {
-        User user = this.getOne(Wrappers.<User>lambdaQuery().eq(User::getNickName, userVo.getNickName()), false);
+    public LoginDTO register(UserRegisterVO userRegisterVO) {
+        User user = this.getOne(Wrappers.<User>lambdaQuery().eq(User::getNickname, userRegisterVO.getNickname()), false);
         BusinessCheck.trueThrow(user != null, 20007);
-        User checkName = this.getOne(Wrappers.<User>lambdaQuery().eq(User::getNickName, userVo.getNickName()), false);
+        User checkName = this.getOne(Wrappers.<User>lambdaQuery().eq(User::getNickname, userRegisterVO.getNickname()), false);
         BusinessCheck.trueThrow(checkName != null, 20012);
         user = new User();
-        user.setNickName(userVo.getNickName());
-        user.setPassword(userVo.getPassword());
-        user = this.setPassword(user);
+        user.setNickname(userRegisterVO.getNickname());
+        setPassword(user, userRegisterVO.getPassword());
         this.save(user);
         return createUserToRedis(user, false);
     }
@@ -82,7 +85,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public LoginDTO doLogin(String nickname, String password, Boolean rememberMe) {
         if (StringUtils.isNotBlank(nickname) && StringUtils.isNotBlank(password)) {
             User user = this.getOne(Wrappers.<User>lambdaQuery()
-                    .eq(User::getNickName, nickname));
+                    .eq(User::getNickname, nickname));
             BusinessCheck.trueThrow(user == null, 20002);
             BusinessCheck.trueThrow(!PasswordUtil.validatePassword(password, user.getSalt(), user.getPassword()), 20010);
             return createUserToRedis(user, rememberMe);
@@ -92,20 +95,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public void updateUser(UserRegisterVO userVo) {
-        User user = this.getById(userVo.getId());
+    public void updateUser(UserRegisterVO userRegisterVO) {
+        User user = this.getById(userRegisterVO.getId());
         BusinessCheck.trueThrow(user == null, 20002);
-        if (!user.getNickName().equals(userVo.getNickName())) {
-            User checkName = this.getOne(Wrappers.<User>lambdaQuery().eq(User::getNickName, userVo.getNickName()), false);
+        if (!user.getNickname().equals(userRegisterVO.getNickname())) {
+            User checkName = this.getOne(Wrappers.<User>lambdaQuery().eq(User::getNickname, userRegisterVO.getNickname()), false);
             BusinessCheck.trueThrow(checkName != null, 20012);
         }
-        user.setNickName(userVo.getNickName());
+        user.setNickname(userRegisterVO.getNickname());
         this.updateById(user);
     }
 
     @Override
-    public void checkNickName(String nickName) {
-        User user = this.getOne(Wrappers.<User>lambdaQuery().eq(User::getNickName, nickName), false);
+    public void checkNickname(String nickname) {
+        User user = this.getOne(Wrappers.<User>lambdaQuery().eq(User::getNickname, nickname), false);
         BusinessCheck.trueThrow(user != null, 20012);
     }
 
@@ -114,7 +117,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         String token = CustomConstants.User.TOKEN_KEY + uuid;
         LoginDTO loginDTO = new LoginDTO();
         loginDTO.setId(user.getId());
-        loginDTO.setNickName(user.getNickName());
+        loginDTO.setNickname(user.getNickname());
         loginDTO.setToken(uuid.toString());
         //普通用户权限
         loginDTO.setApiList(userUriList);
@@ -131,11 +134,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return loginDTO;
     }
 
-    private User setPassword(User user) {
+    private void setPassword(User user, String password) {
+        user.setPassword(password);
         String salt = PasswordUtil.generateSalt();
         user.setSalt(salt);
         user.setPassword(encrypt(user));
-        return user;
     }
 
     private String encrypt(User user) {

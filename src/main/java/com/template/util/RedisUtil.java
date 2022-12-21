@@ -1,22 +1,20 @@
 package com.template.util;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
-import lombok.RequiredArgsConstructor;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 
 /**
  * redis工具类
  *
  * @author Doug Liu
  * @since 2022-06-10
- *
  */
 @Component
 @RequiredArgsConstructor
@@ -587,6 +585,7 @@ public final class RedisUtil {
 
     /**
      * 获取某某某开头的所有keys
+     *
      * @param pattern 表达式
      * @return Set<String>
      */
@@ -601,6 +600,7 @@ public final class RedisUtil {
 
     /**
      * 根据key集合获取列表
+     *
      * @param keys 关键词
      * @return List<Object>
      */
@@ -612,4 +612,5 @@ public final class RedisUtil {
             return null;
         }
     }
+
 }

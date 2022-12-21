@@ -43,6 +43,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+
         <!-- guava -->
         <dependency>
             <groupId>com.google.guava</groupId>

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
  * @author Doug Liu
  * @since 2022-12-20
  */
-@Api(tags = { "文档示例" })
+@Api(tags = {"文档示例"})
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/user")
@@ -31,10 +31,10 @@ public class UserController {
 
     @PostMapping("/updateUser")
     @ApiOperation(value = "POST实体请求示例")
-    public void updateUser(@RequestBody UserRegisterVO userVo) {
-        log.info("请求方法开始-->方法名:【updateUser】-->参数:userVo = {}", userVo.toString());
-        userVo.setId(ContextUtil.getContext().getId());
-        userService.updateUser(userVo);
+    public void updateUser(@RequestBody UserRegisterVO userRegisterVO) {
+        log.info("请求方法开始-->方法名:【updateUser】-->参数:userRegisterVO = {}", userRegisterVO.toString());
+        userRegisterVO.setId(ContextUtil.getContext().getId());
+        userService.updateUser(userRegisterVO);
     }
 
     @GetMapping("/getUser")
@@ -45,13 +45,13 @@ public class UserController {
     }
 
 
-    @GetMapping("/checkNickName")
+    @GetMapping("/checkNickname")
     @ApiOperation(value = "GET普通传参示例")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "nickName", value = "昵称", dataTypeClass = String.class, required = true)
+            @ApiImplicitParam(name = "nickname", value = "昵称", dataTypeClass = String.class, required = true)
     })
-    public void checkNickName(String nickName) {
-        userService.checkNickName(nickName);
+    public void checkNickname(String nickname) {
+        userService.checkNickname(nickname);
     }
 
 }

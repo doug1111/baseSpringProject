@@ -1,29 +1,23 @@
 package com.template.config.socket;
 
-import java.io.IOException;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.websocket.*;
+import java.io.IOException;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * WebSocket服务
  *
  * @author Doug Liu
  * @since 2022-06-10
- *
  */
-//@ServerEndpoint("/blkServer/{userId}")
+//@ServerEndpoint("/testServer/{userId}")
 //@Component
 @Slf4j
 public class WebSocketServer {
@@ -45,6 +39,16 @@ public class WebSocketServer {
 
     @Getter
     private Session session;
+
+    /**
+     * 根据客户端ID获取socket
+     *
+     * @param clientId 客户端ID
+     * @return WebSocketServer
+     */
+    public static WebSocketServer getWebSocketServer(String clientId) {
+        return WEB_SOCKET_MAP.get(clientId);
+    }
 
     /**
      * 连接建立成功调用的方法
@@ -107,7 +111,7 @@ public class WebSocketServer {
     }
 
     /**
-     *
+     * 打印错误信息
      */
     @OnError
     public void onError(Throwable error) {
@@ -127,16 +131,6 @@ public class WebSocketServer {
         }
     }
 
-    /**
-     * 根据客户端ID获取socket
-     * @param clientId 客户端ID
-     * @return WebSocketServer
-     */
-    public static WebSocketServer getWebSocketServer(String clientId) {
-        return WEB_SOCKET_MAP.get(clientId);
-    }
-
-
     public int getOnlineCount() {
         return ONLINE_COUNT.get();
     }
@@ -148,4 +142,5 @@ public class WebSocketServer {
     public void subOnlineCount() {
         ONLINE_COUNT.decrementAndGet();
     }
+
 }

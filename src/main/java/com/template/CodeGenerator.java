@@ -1,10 +1,6 @@
 package com.template;
 
 
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -14,40 +10,37 @@ import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
+
 
 /**
  * MySQL代码生成器，生成entity，mapper，service，controller
  *
  * @author Doug Liu
  * @since 2022-06-10
- *
  */
 public class CodeGenerator {
 
-	/**
-	 * <p>
-	 * 读取控制台内容
-	 * </p>
-	 */
-	public static String scanner(String tip) {
-		Scanner scanner = new Scanner(System.in);
+    /**
+     * 读取控制台内容
+     * @param tip 提示信息
+     * @return String
+     */
+    public static String scanner(String tip) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("请输入" + tip + "：");
-		if (scanner.hasNext()) {
-			String ipt = scanner.next();
-			if (StringUtils.isNotBlank(ipt)) {
-				return ipt;
-			}
-		}
-		throw new MybatisPlusException("请输入正确的" + tip + "！");
-	}
+        if (scanner.hasNext()) {
+            String ipt = scanner.next();
+            if (StringUtils.isNotBlank(ipt)) {
+                return ipt;
+            }
+        }
+        throw new MybatisPlusException("请输入正确的" + tip + "！");
+    }
 
     public static void main(String[] args) throws IOException {
-        /*
-            特别注意：生成的时间类型均为：“LocalDateTime”格式，需要加入以下注解方可正常使用
-            @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-            @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-            @JsonSerialize(using = LocalDateTimeSerializer.class)
-        */
         //数据库连接
         String url = "jdbc:mysql://localhost:3306/template_db?cacheServerConfiguration=true&useLocalSessionState=true&autoReconnect=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai";//数据库url
         String username = "root";//账号
@@ -75,7 +68,7 @@ public class CodeGenerator {
         List<String> tables = new ArrayList<>(Arrays.asList(scanner("表名，多个英文逗号分割").split(",")));
 
         //开始生成
-        FastAutoGenerator.create(url,username,password)
+        FastAutoGenerator.create(url, username, password)
                 //全局配置
                 .globalConfig(builder -> {
                     builder.author(author)

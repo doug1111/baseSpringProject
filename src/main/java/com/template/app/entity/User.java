@@ -23,7 +23,7 @@ import lombok.experimental.Accessors;
 public class User extends BaseEntity {
 
     @ApiModelProperty("昵称")
-    private String nickName;
+    private String nickname;
 
     @ApiModelProperty("密码")
     private String password;

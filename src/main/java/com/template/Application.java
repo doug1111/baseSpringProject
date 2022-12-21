@@ -12,15 +12,14 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  *
  * @author Doug Liu
  * @since 2022-06-10
- *
  */
 @EnableAsync
 @EnableScheduling
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer {
 
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 
 }
