@@ -43,6 +43,7 @@ public class SwaggerConfig {
                 .globalRequestParameters(getGlobalRequestParameters()).groupName("需要token认证的接口");
     }
 
+
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("接口文档API")

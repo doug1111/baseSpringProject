@@ -21,6 +21,8 @@
         <mybatis-plus-generator.version>3.5.3</mybatis-plus-generator.version>
         <freemaker.version>2.3.31</freemaker.version>
         <guava.version>31.1-jre</guava.version>
+        <alibaba-fastjson.version>2.0.21.graal</alibaba-fastjson.version>
+        <swagger.version>3.0.3</swagger.version>
         <hutool-all.version>5.8.10</hutool-all.version>
     </properties>
 
@@ -108,9 +110,8 @@
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>3.0.3</version>
+            <version>${swagger.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-core</artifactId>
@@ -119,7 +120,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>2.0.21.graal</version>
+            <version>${alibaba-fastjson.version}</version>
         </dependency>
     </dependencies>
 

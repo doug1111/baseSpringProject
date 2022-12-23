@@ -5,13 +5,16 @@ import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
+import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
+import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Types;
 import java.util.*;
 
 
@@ -24,23 +27,29 @@ import java.util.*;
 public class CodeGenerator {
 
     /**
-     * 读取控制台内容
+     * 读取控制台内容，获取数据库表名
      * @param tip 提示信息
-     * @return String
+     * @return String[]
      */
-    public static String scanner(String tip) {
+    public static String[] getTables(String tip) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("请输入" + tip + "：");
         if (scanner.hasNext()) {
             String ipt = scanner.next();
             if (StringUtils.isNotBlank(ipt)) {
-                return ipt;
+                return ipt.split(",");
             }
         }
         throw new MybatisPlusException("请输入正确的" + tip + "！");
     }
 
     public static void main(String[] args) throws IOException {
+        /*
+         *  特别注意：生成的时间类型均为：“LocalDateTime”格式，需要假如以下注解方可正常使用
+         *  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+         *  @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+         *  @JsonSerialize(using = LocalDateTimeSerializer.class)
+         */
         //数据库连接
         String url = "jdbc:mysql://localhost:3306/template_db?cacheServerConfiguration=true&useLocalSessionState=true&autoReconnect=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai";//数据库url
         String username = "root";//账号
@@ -65,10 +74,21 @@ public class CodeGenerator {
         String serviceImpl = "service.impl";//Service Impl 包名
         String controller = "controller";//Controller 包名
         //要生成的数据库表
-        List<String> tables = new ArrayList<>(Arrays.asList(scanner("表名，多个英文逗号分割").split(",")));
+        String[] tables = getTables("表名，多个英文逗号分割");
 
+        DataSourceConfig.Builder dataSourceConfig = new DataSourceConfig.Builder(url, username, password);
+        dataSourceConfig.typeConvertHandler((globalConfig, typeRegistry, metaInfo) -> {
+            int typeCode = metaInfo.getJdbcType().TYPE_CODE;
+            if (typeCode == Types.TINYINT) {
+                if (metaInfo.getLength() > 1) {
+                    return DbColumnType.INTEGER;
+                }
+                return DbColumnType.BOOLEAN;
+            }
+            return typeRegistry.getColumnType(metaInfo);
+        });
         //开始生成
-        FastAutoGenerator.create(url, username, password)
+        FastAutoGenerator.create(dataSourceConfig)
                 //全局配置
                 .globalConfig(builder -> {
                     builder.author(author)
@@ -81,14 +101,14 @@ public class CodeGenerator {
                 //包配置
                 .packageConfig(builder -> {
                     builder.parent(parent)
-//                            .moduleName(moduleName)// 父包模块名 可以注释掉
+//                            .moduleName(moduleName)//父包模块名 可以注释掉
                             .entity(entity)
                             .mapper(mapper)
                             .xml(mapperXml)
                             .service(service)
                             .serviceImpl(serviceImpl)
                             .controller(controller)
-                            .pathInfo(Collections.singletonMap(OutputFile.xml, xmlOutputDir));
+                            .pathInfo(Collections.singletonMap(OutputFile.xml, xmlOutputDir));//设置Mapper.xml的生成位置
                 })
                 //策略配置
                 .strategyConfig(builder -> {
