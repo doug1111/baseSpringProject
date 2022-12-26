@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * 转换生成的时间格式为 yyyy-MM-dd HH:mm:ss
  *
- * @author Liu Wenchang
+ * @author Doug Liu
  * @since 2022-12-23
  *
  */

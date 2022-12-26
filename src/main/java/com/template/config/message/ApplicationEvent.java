@@ -8,8 +8,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
-
 /**
  * 信息事件配置
  *
@@ -19,8 +17,11 @@ import javax.annotation.Resource;
 @Component
 public class ApplicationEvent implements ApplicationListener<ContextRefreshedEvent> {
 
-	@Resource
-	protected MessageSource messageSource;
+	protected final MessageSource messageSource;
+
+    public ApplicationEvent(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
 
     /**
      * 处理应用事件

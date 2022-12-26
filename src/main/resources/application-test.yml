@@ -44,6 +44,10 @@ spring:
         # druid访问地址:http://localhost:port/context-path/druid/login.html 账号&密码
         login-username: admin
         login-password: admin
+  # 处理swagger路径冲突
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   redis:
     database: 0
     host: 127.0.0.1

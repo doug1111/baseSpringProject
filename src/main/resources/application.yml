@@ -46,12 +46,3 @@ mybatis-plus:
 #      table-prefix: temp_
     banner: false
 
-#权限相关配置
-permission:
-  exclude-check-url: /doc.html,/webjars/**,/swagger-resources/**,/swagger/**,/swagger-ui/**,/v3/api-docs,/user/register,/user/login,/user/checkNickName
-  admin:
-    menu: '[{"path":"/admin","name":"主页","en_name":"Home","icon":"#iconzhuye"}]'
-    uri: /user/detail,/user/logout
-  user:
-    menu: '[{"path":"/main","name":"主页","en_name":"Home","icon":"#iconzhuye"}]'
-    uri: /user/detail,/user/logout

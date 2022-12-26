@@ -19,8 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -46,20 +44,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      */
     private static final long LONG_EXPIRE_TIME = 30 * 24 * 60 * 60;
 
-    /**
-     * 普通用户菜单
-     **/
-    @Value("${permission.user.menu}")
-    private String userMenuList;
+    private final RedisUtil redisUtil;
 
-    /**
-     * 普通接口权限
-     **/
-    @Value("${permission.user.uri}")
-    private List<String> userUriList;
-
-    @Resource
-    private RedisUtil redisUtil;
+    public UserServiceImpl(RedisUtil redisUtil) {
+        this.redisUtil = redisUtil;
+    }
 
     @Override
     public UserDTO getUserDetail(Long userId) {
@@ -120,9 +109,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         loginDTO.setNickname(user.getNickname());
         loginDTO.setToken(uuid.toString());
         //普通用户权限
-        loginDTO.setApiList(userUriList);
+//        loginDTO.setApiList(userUriList);
         //普通用户菜单
-        loginDTO.setMenuList(userMenuList);
+//        loginDTO.setMenuList(userMenuList);
         Map<String, Object> map = BeanUtil.beanToMap(loginDTO);
         if (rememberMe != null && rememberMe) {
             redisUtil.hmset(token, map, LONG_EXPIRE_TIME);

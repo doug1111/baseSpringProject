@@ -40,8 +40,9 @@ public class UserController {
     @GetMapping("/getUser")
     @ApiOperation(value = "GET请求示例")
     public UserDTO getUserInfo() {
-        log.info("请求方法开始-->方法名:【getUserInfo】-->参数:userId = {}", ContextUtil.getContext().getId());
-        return userService.getUserDetail(ContextUtil.getContext().getId());
+//        log.info("请求方法开始-->方法名:【getUserInfo】-->参数:userId = {}", ContextUtil.getContext().getId());
+//        return userService.getUserDetail(ContextUtil.getContext().getId());
+        return new UserDTO();
     }
 
 

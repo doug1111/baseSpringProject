@@ -3,7 +3,6 @@ package com.template.config.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -28,7 +27,6 @@ import java.util.List;
  */
 @EnableOpenApi
 @Configuration
-@EnableWebMvc
 public class SwaggerConfig {
 
     @Bean
@@ -40,9 +38,8 @@ public class SwaggerConfig {
                 //.apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build()
-                .globalRequestParameters(getGlobalRequestParameters()).groupName("需要token认证的接口");
+                .globalRequestParameters(getGlobalRequestParameters()).groupName("测试分组：用户接口");
     }
-
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
