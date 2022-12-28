@@ -45,13 +45,12 @@ public class UserController {
         return new UserDTO();
     }
 
-
     @GetMapping("/checkNickname")
     @ApiOperation(value = "GET普通传参示例")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "nickname", value = "昵称", dataTypeClass = String.class, required = true)
     })
-    public void checkNickname(String nickname) {
+    public void checkNickname(@RequestParam String nickname) {
         userService.checkNickname(nickname);
     }
 
