@@ -1,3 +1,6 @@
+## TO GET START
+Developers could download or copy the project to start their development. To make the framework satisfy your requirements, you could change simply change the setting. And then, you are all good to start function or business logic development.
+
 # About BaseSpringProject
 The base java framework is a maven project, which has integrated the popular plugins or components for SpringBoot framework. This project provides the useful framework that is easily to access and CI(continuous integration). It is a server-side service, which includes two parts that enable the service connect to database and expose the API to the front service.
 
@@ -10,9 +13,6 @@ The structure are combined by controller, service and data mapping. API related 
 
 ## Purpose
 With the baseSpringProject, the developers could start the project with a useful template and reduce the time on framework construction.
-
-## TO GET START
-Developers could download or copy the project to start their development. To make the framework satisfy your requirements, you could change simply change the setting. And then, you are all good to start function or business logic development.
 
 ## For the support
 Please leave me message through Github or submit the issue to resolve problems or get help from me. 
