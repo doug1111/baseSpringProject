@@ -1,10 +1,10 @@
 package com.template.filter;
 
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.template.util.RedisUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,7 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
 
-    private final RedisUtil redisUtil;
+    @Resource
+    private RedisUtil redisUtil;
 
     public LoginInterceptor(RedisUtil redisUtil) {
         this.redisUtil = redisUtil;
