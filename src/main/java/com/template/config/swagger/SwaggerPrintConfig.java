@@ -17,6 +17,7 @@ import java.net.UnknownHostException;
 @Component
 @Slf4j
 public class SwaggerPrintConfig implements ApplicationListener<WebServerInitializedEvent> {
+
     @Override
     public void onApplicationEvent(WebServerInitializedEvent event) {
         try {
@@ -31,4 +32,5 @@ public class SwaggerPrintConfig implements ApplicationListener<WebServerInitiali
             e.printStackTrace();
         }
     }
+
 }
