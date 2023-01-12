@@ -29,7 +29,7 @@
 	<!--输出到debug-->
 	<appender name="debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${logback.path}/blk-debug-%d{yyyy-MM-dd}.out</fileNamePattern>
+			<fileNamePattern>${logback.path}/debug-%d{yyyy-MM-dd}.out</fileNamePattern>
 		</rollingPolicy>
 		<append>true</append>
 		<encoder>
@@ -46,7 +46,7 @@
 	<!--输出到info-->
 	<appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${logback.path}/blk-info-%d{yyyy-MM-dd}.out</fileNamePattern>
+			<fileNamePattern>${logback.path}/info-%d{yyyy-MM-dd}.out</fileNamePattern>
 		</rollingPolicy>
 		<append>true</append>
 		<encoder>
@@ -63,7 +63,7 @@
 	<!--输出到error-->
 	<appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${logback.path}/blk-error-%d{yyyy-MM-dd}.out</fileNamePattern>
+			<fileNamePattern>${logback.path}/error-%d{yyyy-MM-dd}.out</fileNamePattern>
 		</rollingPolicy>
 		<append>true</append>
 		<encoder>
@@ -80,7 +80,7 @@
 	<!--输出到warn-->
 	<appender name="warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${logback.path}/blk-warn-%d{yyyy-MM-dd}.out</fileNamePattern>
+			<fileNamePattern>${logback.path}/warn-%d{yyyy-MM-dd}.out</fileNamePattern>
 		</rollingPolicy>
 		<append>true</append>
 		<encoder>

@@ -5,7 +5,6 @@ package com.template.util;
  *
  * @author Doug Liu
  * @since 2022-06-10
- *
  */
 public class MathUtil {
 
@@ -44,6 +43,7 @@ public class MathUtil {
 
     /**
      * 生产一个随机的指定位数的字符串数字
+     *
      * @param length 指定长度
      * @return String
      */
@@ -54,4 +54,5 @@ public class MathUtil {
         int end = Integer.parseInt(makeUpNewData("", length + 1)) - start;
         return (int) (Math.random() * end) + start + "";
     }
+
 }

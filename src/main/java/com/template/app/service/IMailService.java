@@ -5,14 +5,15 @@ package com.template.app.service;
  *
  * @author Doug Liu
  * @since 2022-06-14
- *
  */
 public interface IMailService {
 
-	/**
-	 * 发送邮件
-	 * @param to 发送地址
-	 * @param content 内容
-	 */
-	void sendSimpleMailMessage(String to, String content);
+    /**
+     * 发送邮件
+     *
+     * @param to      发送地址
+     * @param content 内容
+     */
+    void sendSimpleMailMessage(String to, String content);
+
 }

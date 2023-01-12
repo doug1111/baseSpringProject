@@ -10,29 +10,30 @@ import org.springframework.context.support.ResourceBundleMessageSource;
  *
  * @author Doug Liu
  * @since 2022-06-10
- *
  */
 public class MessageUtil extends ResourceBundleMessageSource {
 
     private static MessageSource messageSource;
 
-    public static void setMessageSource(MessageSource source) {
-        messageSource = source;
-    }
-
     public MessageUtil() {
         super();
     }
 
+    public static void setMessageSource(MessageSource source) {
+        messageSource = source;
+    }
+
     /**
      * 获取单个国际化翻译值
+     * @param pvsKey 国际化的键
+     * @return String
      */
     public static String get(String pvsKey) {
         try {
             return messageSource.getMessage(pvsKey, null, LocaleContextHolder.getLocale());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return pvsKey;
         }
     }
+
 }

@@ -1,20 +1,19 @@
 package com.template.common;
 
 
-import java.io.Serializable;
-
 import com.template.util.MessageUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * 通用返回数据封装
  *
  * @author Doug Liu
  * @since 2022-06-10
- *
  */
 @EqualsAndHashCode
 @Data
@@ -24,10 +23,19 @@ public class ResultDTO<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 返回数据
+     */
     private T data;
 
+    /**
+     * 返回代码
+     */
     private Integer code;
 
+    /**
+     * 提示信息
+     */
     private String message;
 
     public static <T> ResultDTO<T> fail(Integer code, String message) {

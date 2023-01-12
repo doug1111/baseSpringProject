@@ -11,33 +11,33 @@ spring:
     host: 127.0.0.1
     port: 6379
     timeout: 10000
-  #    password:
+    password:
 
-  mail:
-    # 邮件服务地址
-    host: smtp.zoho.com
-    # 端口,可不写默认
-    port: 465
-    # 编码格式
-    default-encoding: utf-8
-    # 用户名
-    username: admin
-    # 授权码，就是我们刚才准备工作获取的代码
-    password: admin
-    # 其它参数
-    properties:
-      mail:
-        smtp:
-          # 如果是用 SSL 方式，需要配置如下属性,使用qq邮箱的话需要开启
-          ssl:
-            enable: true
-            required: true
-          # 邮件接收时间的限制，单位毫秒
-          timeout: 10000
-          # 连接时间的限制，单位毫秒
-          connectiontimeout: 10000
-          # 邮件发送时间的限制，单位毫秒
-          writetimeout: 10000
+#  mail:
+#    # 邮件服务地址
+#    host: smtp.zoho.com
+#    # 端口,可不写默认
+#    port: 465
+#    # 编码格式
+#    default-encoding: utf-8
+#    # 用户名
+#    username: admin
+#    # 授权码，就是我们刚才准备工作获取的代码
+#    password: admin
+#    # 其它参数
+#    properties:
+#      mail:
+#        smtp:
+#          # 如果是用 SSL 方式，需要配置如下属性,使用qq邮箱的话需要开启
+#          ssl:
+#            enable: true
+#            required: true
+#          # 邮件接收时间的限制，单位毫秒
+#          timeout: 10000
+#          # 连接时间的限制，单位毫秒
+#          connectiontimeout: 10000
+#          # 邮件发送时间的限制，单位毫秒
+#          writetimeout: 10000
 
 #Swagger配置,详细配置参考官网 https://doc.xiaominfo.com/
 knife4j:

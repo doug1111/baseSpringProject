@@ -1,6 +1,12 @@
 package com.template.util;
 
 
+import com.google.common.collect.Maps;
+import com.template.common.BizException;
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.cglib.beans.BeanMap;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
@@ -9,21 +15,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import com.google.common.collect.Maps;
-import com.template.common.BizException;
-import org.apache.commons.collections.CollectionUtils;
-
-import org.springframework.beans.BeanUtils;
-import org.springframework.cglib.beans.BeanMap;
-
 import static java.util.stream.Collectors.toList;
 
 /**
- * 通用Bean工具类，包括Java bean和map之间转换
+ * 通用Bean工具类
+ * 1. Java bean和map之间转换
+ * 2. Java bean列表和map列表之间的转换
  *
  * @author Doug Liu
  * @since 2022-06-10
- *
  */
 public class BeanUtil {
 
@@ -31,8 +31,8 @@ public class BeanUtil {
      * 实现单个Bean复制
      *
      * @param source 源bean
-     * @param clazz 目标类型
-     * @param <T> 源泛型
+     * @param clazz  目标类型
+     * @param <T>    源泛型
      */
     public static <T, K> K copy(T source, Class<K> clazz) {
         if (source == null) {
@@ -42,8 +42,7 @@ public class BeanUtil {
         try {
             target = clazz.getDeclaredConstructor().newInstance();
             BeanUtils.copyProperties(source, target);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             throw new BizException(e.getMessage());
         }
@@ -54,8 +53,8 @@ public class BeanUtil {
      * 复制列表对象
      *
      * @param sourceList 源数据列表
-     * @param <T> 源数据类型
-     * @param <K> 目标数据类型
+     * @param <T>        源数据类型
+     * @param <K>        目标数据类型
      */
     public static <T, K> List<K> copyList(List<T> sourceList, Class<K> clazz) {
         if (sourceList == null) {
@@ -91,9 +90,9 @@ public class BeanUtil {
     /**
      * 将map装换为javabean对象
      *
-     * @param map map数据
+     * @param map       map数据
      * @param beanClass bean类
-     * @return T
+     * @return T 数据泛型
      */
     public static <T> T mapToBean(Map<String, Object> map, Class<T> beanClass) {
         if (map == null) {
@@ -111,8 +110,7 @@ public class BeanUtil {
                 field.set(obj, map.get(field.getName()));
             }
             return obj;
-        }
-        catch (InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+        } catch (InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
             throw new BizException(e.getMessage());
         }
@@ -134,9 +132,9 @@ public class BeanUtil {
     /**
      * 将map装换为javabean对象
      *
-     * @param mapList map数据列表
+     * @param mapList   map数据列表
      * @param beanClass bean类
-     * @return List<T>
+     * @return List<T> 泛型列表
      */
     public static <T> List<T> mapsToBeans(List<Map<String, Object>> mapList, Class<T> beanClass) {
         if (CollectionUtils.isEmpty(mapList)) {
