@@ -28,11 +28,11 @@ import static java.util.stream.Collectors.toList;
 public class BeanUtil {
 
     /**
-     * 实现单个Bean复制
+     * 单个实体映射，实体属性复制
      *
-     * @param source 源bean
+     * @param source 源实体
      * @param clazz  目标类型
-     * @param <T>    源泛型
+     * @param <T>    源实体泛型
      */
     public static <T, K> K copy(T source, Class<K> clazz) {
         if (source == null) {
@@ -52,9 +52,11 @@ public class BeanUtil {
     /**
      * 复制列表对象
      *
-     * @param sourceList 源数据列表
-     * @param <T>        源数据类型
-     * @param <K>        目标数据类型
+     * @param sourceList 源实体列表
+     * @param clazz      目标实体类型
+     * @return List<K>
+     * @param <T>        源实体泛型
+     * @param <K>        目标实体泛型
      */
     public static <T, K> List<K> copyList(List<T> sourceList, Class<K> clazz) {
         if (sourceList == null) {
@@ -73,8 +75,9 @@ public class BeanUtil {
     /**
      * 将对象装换为map
      *
-     * @param bean bean对象
+     * @param bean 源实体
      * @return Map<String, Object>
+     * @param <T>  实体泛型
      */
     public static <T> Map<String, Object> beanToMap(T bean) {
         Map<String, Object> map = Maps.newHashMap();
@@ -90,9 +93,9 @@ public class BeanUtil {
     /**
      * 将map装换为javabean对象
      *
-     * @param map       map数据
-     * @param beanClass bean类
-     * @return T 数据泛型
+     * @param map       map对象
+     * @param beanClass 目标实体类型
+     * @return T 实体泛型
      */
     public static <T> T mapToBean(Map<String, Object> map, Class<T> beanClass) {
         if (map == null) {

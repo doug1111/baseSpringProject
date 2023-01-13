@@ -4,7 +4,7 @@ spring:
   data:
     mongodb:
 #      uri: mongodb+srv://username:password@url/dbName?connectTimeoutMS=600000&socketTimeoutMS=600000
-      uri: mongodb://localhost/test_template?connectTimeoutMS=600000&socketTimeoutMS=600000
+      uri: mongodb://root:Qwer123.@localhost/template_db?connectTimeoutMS=600000&socketTimeoutMS=600000&authSource=admin
       auto-index-creation: true
   redis:
     database: 0

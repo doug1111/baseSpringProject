@@ -1,14 +1,14 @@
 package com.template.app.entity.base;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 
 /**
@@ -18,23 +18,26 @@ import java.sql.Timestamp;
  * @since 2022-06-14
  */
 @Data
+@ApiModel(value = "BaseEntity对象", description = "基础实体信息")
 public class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
     @ApiModelProperty(value = "ID")
-    private Long id;
+    @Field("_id")
+    @Id
+    private ObjectId id;
 
-    @TableField(fill = FieldFill.INSERT)
     @ApiModelProperty(value = "创建时间")
-    private Timestamp createTime;
+    @Field("createTime")
+    private Date createTime;
 
-    @TableField(fill = FieldFill.UPDATE)
     @ApiModelProperty(value = "更新时间")
-    private Timestamp updateTime;
+    @Field("updateTime")
+    private Date updateTime;
 
     @ApiModelProperty(value = "删除 0否 1是")
+    @Field("deleteFlag")
     private Integer deleteFlag;
 
 }

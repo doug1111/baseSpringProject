@@ -1,10 +1,8 @@
 package com.template.app.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.template.app.dto.LoginDTO;
 import com.template.app.dto.UserDTO;
 import com.template.app.dto.UserRegisterVO;
-import com.template.app.entity.User;
 
 /**
  * <p>
@@ -14,7 +12,7 @@ import com.template.app.entity.User;
  * @author Doug Liu
  * @since 2022-12-20
  */
-public interface IUserService extends IService<User> {
+public interface IUserService {
 
     /**
      * 获取用户详情
@@ -22,7 +20,7 @@ public interface IUserService extends IService<User> {
      * @param userId 用户ID
      * @return UserDTO
      */
-    UserDTO getUserDetail(Long userId);
+    UserDTO getUserDetail(String userId);
 
     /**
      * 注册
