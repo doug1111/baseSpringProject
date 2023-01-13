@@ -53,13 +53,13 @@ public class UserController {
         return new UserDTO();
     }
 
-    @GetMapping("/checkNickname")
-    @ApiOperation(value = "GET普通传参示例，检查用户名")
+    @GetMapping("/deleteUser")
+    @ApiOperation(value = "GET普通传参示例，删除用户")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "nickname", value = "昵称", dataTypeClass = String.class, required = true)
+            @ApiImplicitParam(name = "id", value = "用户ID", dataTypeClass = String.class, required = true)
     })
-    public void checkNickname(@RequestParam String nickname) {
-        userService.checkNickname(nickname);
+    public Boolean deleteUser(@RequestParam String id) {
+        return userService.deleteUser(id);
     }
 
 }

@@ -54,4 +54,12 @@ public interface IUserService {
      */
     void checkNickname(String nickname);
 
+    /**
+     * 删除用户
+     *
+     * @param id 用户ID
+     * @return Boolean
+     */
+    Boolean deleteUser(String id);
+
 }

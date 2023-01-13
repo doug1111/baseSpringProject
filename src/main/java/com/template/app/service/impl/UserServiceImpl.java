@@ -50,14 +50,17 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDTO getUserDetail(String userId) {
-        UserDTO userDTO = mongoTemplate.findById(new ObjectId(userId), UserDTO.class);
-        BusinessCheck.trueThrow(userDTO == null, 20002);
+        User user = mongoTemplate.findById(new ObjectId(userId), User.class);
+        BusinessCheck.trueThrow(user == null || user.getDeleteFlag() == 1, 20002);
+        UserDTO userDTO = MongoBeanUtil.copy(user, UserDTO.class);
         return userDTO;
     }
 
     @Override
     public LoginDTO register(UserRegisterVO userRegisterVO) {
-        User user = mongoTemplate.findOne(new Query(Criteria.where("nickname").is(userRegisterVO.getNickname())), User.class);
+        User user = mongoTemplate.findOne(
+                new Query(Criteria.where("nickname").is(userRegisterVO.getNickname())
+                        .and("deleteFlag").is(0)), User.class);
         BusinessCheck.trueThrow(user != null, 20012);
         user = new User();
         user.setNickname(userRegisterVO.getNickname());
@@ -70,7 +73,9 @@ public class UserServiceImpl implements IUserService {
     @Override
     public LoginDTO doLogin(String nickname, String password, Boolean rememberMe) {
         if (StringUtils.isNotBlank(nickname) && StringUtils.isNotBlank(password)) {
-            User user = mongoTemplate.findOne(new Query(Criteria.where("nickname").is(nickname)), User.class);
+            User user = mongoTemplate.findOne(
+                    new Query(Criteria.where("nickname").is(nickname)
+                            .and("deleteFlag").is(0)), User.class);
             BusinessCheck.trueThrow(user == null, 20002);
             BusinessCheck.trueThrow(!PasswordUtil.validatePassword(password, user.getSalt(), user.getPassword()), 20010);
             return createUserToRedis(user, rememberMe);
@@ -82,9 +87,11 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void updateUser(UserRegisterVO userRegisterVO) {
         User user = mongoTemplate.findById(new ObjectId(userRegisterVO.getId()), User.class);
-        BusinessCheck.trueThrow(user == null, 20002);
+        BusinessCheck.trueThrow(user == null || user.getDeleteFlag() == 1, 20002);
         if (!user.getNickname().equals(userRegisterVO.getNickname())) {
-            User checkName = mongoTemplate.findOne(new Query(Criteria.where("nickname").is(userRegisterVO.getNickname())), User.class);
+            User checkName = mongoTemplate.findOne(
+                    new Query(Criteria.where("nickname").is(userRegisterVO.getNickname())
+                            .and("deleteFlag").is(0)), User.class);
             BusinessCheck.trueThrow(checkName != null, 20012);
         }
         user.setNickname(userRegisterVO.getNickname());
@@ -93,8 +100,21 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void checkNickname(String nickname) {
-        User user = mongoTemplate.findOne(new Query(Criteria.where("nickname").is(nickname)), User.class);
+        User user = mongoTemplate.findOne(
+                new Query(Criteria.where("nickname").is(nickname)
+                        .and("deleteFlag").is(0)), User.class);
         BusinessCheck.trueThrow(user != null, 20012);
+    }
+
+    @Override
+    public Boolean deleteUser(String id) {
+        Query query = new Query(Criteria.where("_id").is(new ObjectId(id)));
+        Update update = new Update();
+        update.set("deleteFlag", 1);
+        Date today = new Date();
+        update.set("updateTime", today);
+        UpdateResult result = mongoTemplate.updateFirst(query, update, User.class);
+        return result.getMatchedCount() > 0;
     }
 
     /**
@@ -162,6 +182,11 @@ public class UserServiceImpl implements IUserService {
         return result.getMatchedCount() > 0;
     }
 
+    /**
+     * 设置用户密码
+     * @param user     用户信息
+     * @param password 密码
+     */
     private void setPassword(User user, String password) {
         user.setPassword(password);
         String salt = PasswordUtil.generateSalt();
@@ -169,6 +194,11 @@ public class UserServiceImpl implements IUserService {
         user.setPassword(encrypt(user));
     }
 
+    /**
+     * 加密用户密码
+     * @param user 用户信息
+     * @return String
+     */
     private String encrypt(User user) {
         return PasswordUtil.encryptPassword(user.getPassword(), user.getSalt());
     }
