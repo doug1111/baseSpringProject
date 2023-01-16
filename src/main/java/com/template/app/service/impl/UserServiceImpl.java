@@ -59,21 +59,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public LoginDTO register(UserRegisterVO userRegisterVO) {
         User user = this.getOne(Wrappers.<User>lambdaQuery().eq(User::getNickname, userRegisterVO.getNickname()), false);
-        BusinessCheck.trueThrow(user != null, 20007);
-        User checkName = this.getOne(Wrappers.<User>lambdaQuery().eq(User::getNickname, userRegisterVO.getNickname()), false);
-        BusinessCheck.trueThrow(checkName != null, 20012);
+        BusinessCheck.trueThrow(user != null, 20012);
         user = new User();
-        user.setNickname(userRegisterVO.getNickname());
+        BeanUtil.copy(userRegisterVO, User.class);
         setPassword(user, userRegisterVO.getPassword());
         this.save(user);
-        return createUserToRedis(user, false);
+        return BeanUtil.copy(user, LoginDTO.class);
+//        return createUserToRedis(user, false);
     }
 
     @Override
     public LoginDTO doLogin(String nickname, String password, Boolean rememberMe) {
         if (StringUtils.isNotBlank(nickname) && StringUtils.isNotBlank(password)) {
-            User user = this.getOne(Wrappers.<User>lambdaQuery()
-                    .eq(User::getNickname, nickname));
+            User user = this.getOne(Wrappers.<User>lambdaQuery().eq(User::getNickname, nickname));
             BusinessCheck.trueThrow(user == null, 20002);
             BusinessCheck.trueThrow(!PasswordUtil.validatePassword(password, user.getSalt(), user.getPassword()), 20010);
             return createUserToRedis(user, rememberMe);
