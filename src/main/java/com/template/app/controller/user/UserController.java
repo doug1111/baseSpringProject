@@ -4,6 +4,7 @@ import com.template.app.dto.LoginDTO;
 import com.template.app.dto.UserDTO;
 import com.template.app.dto.UserRegisterVO;
 import com.template.app.service.IUserService;
+import com.template.common.ResultDTO;
 import com.template.util.ContextUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -60,6 +61,14 @@ public class UserController {
     })
     public Boolean deleteUser(@RequestParam String id) {
         return userService.deleteUser(id);
+    }
+
+    @PostMapping("/saveUserInfo")
+    @ApiOperation(value = "mongo数据库直接保存数据示例，保存用户")
+    public ResultDTO<String> saveUserInfo(@RequestBody Object userInfo) {
+        ResultDTO<String> result = new ResultDTO<>();
+        result.setData(userService.saveUserInfo(userInfo));
+        return result;
     }
 
 }

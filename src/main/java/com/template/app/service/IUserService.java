@@ -62,4 +62,12 @@ public interface IUserService {
      */
     Boolean deleteUser(String id);
 
+    /**
+     * 保存用户
+     *
+     * @param userInfo 用户信息
+     * @return String
+     */
+    String saveUserInfo(Object userInfo);
+
 }

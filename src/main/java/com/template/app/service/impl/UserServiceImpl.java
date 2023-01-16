@@ -1,5 +1,7 @@
 package com.template.app.service.impl;
 
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONUtil;
 import com.mongodb.client.result.UpdateResult;
 import com.template.app.dto.LoginDTO;
 import com.template.app.dto.UserDTO;
@@ -12,6 +14,7 @@ import com.template.util.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -115,6 +118,18 @@ public class UserServiceImpl implements IUserService {
         update.set("updateTime", today);
         UpdateResult result = mongoTemplate.updateFirst(query, update, User.class);
         return result.getMatchedCount() > 0;
+    }
+
+    @Override
+    public String saveUserInfo(Object userInfo) {
+        Date today = new Date();
+        JSON userInfoJson = JSONUtil.parse(userInfo);
+        Document user = Document.parse(userInfoJson.toString());
+        user.put("createTime", today);
+        user.put("updateTime", today);
+        user.put("deleteFlag", 0);
+        mongoTemplate.insert(user, "user");
+        return user.get("_id").toString();
     }
 
     /**
