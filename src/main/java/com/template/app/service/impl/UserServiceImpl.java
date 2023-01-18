@@ -51,6 +51,8 @@ public class UserServiceImpl implements IUserService {
 
     private final MongoTemplate mongoTemplate;
 
+    private static final String COLLECTION_NAME = "user";
+
     @Override
     public UserDTO getUserDetail(String userId) {
         User user = mongoTemplate.findById(new ObjectId(userId), User.class);
@@ -128,7 +130,7 @@ public class UserServiceImpl implements IUserService {
         user.put("createTime", today);
         user.put("updateTime", today);
         user.put("deleteFlag", 0);
-        mongoTemplate.insert(user, "user");
+        mongoTemplate.insert(user, COLLECTION_NAME);
         return user.get("_id").toString();
     }
 
