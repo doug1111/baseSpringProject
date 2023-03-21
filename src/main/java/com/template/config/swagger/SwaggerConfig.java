@@ -34,11 +34,11 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.OAS_30)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.template.app.controller.user"))
+                .apis(RequestHandlerSelectors.basePackage("com.template.app.controller"))
                 //.apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build()
-                .globalRequestParameters(getGlobalRequestParameters()).groupName("测试分组：用户接口");
+                .globalRequestParameters(getGlobalRequestParameters()).groupName("测试分组");
     }
 
     private ApiInfo apiInfo() {

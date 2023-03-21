@@ -32,17 +32,17 @@ spring:
       # 常用,json中含pojo不存在属性时是否失败报错,默认true
       FAIL_ON_UNKNOWN_PROPERTIES: false
 
-mybatis-plus:
-  configuration:
-    map-underscore-to-camel-case: true
-    cache-enabled: false
-  global-config:
-    db-config:
-      id-type: auto
-      logic-delete-field: deleteFlag  #全局逻辑删除字段值
-      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
-      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
-#      此处为数据表统一前缀
-#      table-prefix: temp_
-    banner: false
+#mybatis-plus:
+#  configuration:
+#    map-underscore-to-camel-case: true
+#    cache-enabled: false
+#  global-config:
+#    db-config:
+#      id-type: auto
+#      logic-delete-field: deleteFlag  #全局逻辑删除字段值
+#      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+#      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+##      此处为数据表统一前缀
+##      table-prefix: temp_
+#    banner: false
 

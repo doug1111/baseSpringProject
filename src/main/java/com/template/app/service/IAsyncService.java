@@ -8,11 +8,4 @@ package com.template.app.service;
  */
 public interface IAsyncService {
 
-    /**
-     * 执行异步任务
-     *
-     * @param userId 用户ID
-     */
-    void createAsyncTask(Long userId);
-
 }
