@@ -23,7 +23,7 @@ import static java.util.stream.Collectors.toList;
  * 2. Java bean列表和map列表之间的转换
  *
  * @author Doug Liu
- * @since 2022-06-10
+ * @since 2024-01-07
  */
 public class BeanUtil {
 
